@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0f15;
+  --card:#11161f;
+  --muted:#9aa4b4;
+  --accent:#65aaff;
+  --accent2:#49ffd5;
+  --edge:#1d2532;
+  --radius:16px;
+  --max:960px;
+  --reveal-duration:0.72s;
+}
+
+/* Base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#eef2f8;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+}
+
+/* background texture */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06) 1px, transparent 1px) 0 0/220px 220px,
+    radial-gradient(circle at 70% 80%, rgba(255,255,255,0.02) 1px, transparent 1px) 0 0/320px 320px;
+  opacity:0.12;
+  pointer-events:none;
+}
+
+.wrap{
+  max-width:var(--max);
+  margin:50px auto;
+  padding:0 20px 64px;
+}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:32px;
+  gap:12px;
+}
+
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.avatar{
+  width:60px;height:60px;border-radius:16px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:800;color:#00161f;
+  box-shadow:0 6px 16px rgba(0,0,0,0.25);
+  flex:0 0 auto;
+  /* float animation */
+  animation: float 3.6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%{ transform: translateY(0) }
+  50%{ transform: translateY(-6px) }
+  100%{ transform: translateY(0) }
+}
+
+.title{font-size:20px;font-weight:700}
+.subtitle{font-size:14px;color:var(--muted)}
+
+/* Desktop navigation */
+nav{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+.link{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:14px;
+  padding:6px 8px;
+  border-radius:8px;
+}
+.link:hover{color:var(--accent)}
+.cta{
+  background:var(--accent);
+  padding:10px 18px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+  color:#00161f;
+}
+
+/* Mobile menu */
+#mobileMenuBtn{
+  display:none;
+  font-size:26px;
+  background:none;
+  border:none;
+  color:#cfe6ff;
+}
+#mobileMenu{
+  display:none;
+  flex-direction:column;
+  background:var(--card);
+  padding:12px;
+  border-radius:12px;
+  margin-top:12px;
+  border:1px solid var(--edge);
+}
+#mobileMenu a{ text-decoration:none; color:var(--muted); padding:10px 0; }
+#mobileMenu a:hover{ color:var(--accent); }
+
+/* CARD / HERO */
+.card{
+  background:var(--card);
+  padding:30px;
+  border-radius:16px;
+  border:1px solid var(--edge);
+  margin-bottom:40px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.28);
+}
+
+.hero .lead{
+  font-size:28px;
+  font-weight:700;
+  margin:0;
+  color:white;
+}
+.summary{ margin-top:10px; color:var(--muted); font-size:16px }
+
+.meta{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px }
+.tag{
+  padding:8px 14px; border-radius:20px; background:#0d1219; border:1px solid #1e2834; font-size:14px; color:var(--muted);
+}
+
+/* GRID */
+.grid{ display:grid; grid-template-columns:1fr; gap:40px }
+@media(min-width:880px){ .grid{ grid-template-columns:1fr 320px } }
+
+/* PROJECTS */
+.proj{
+  background:#121922;
+  padding:20px;
+  border-left:4px solid rgba(101,170,255,0.45);
+  border-radius:14px;
+  margin-bottom:26px;
+  transition: transform .22s ease, box-shadow .22s ease, border-left-color .18s ease;
+  will-change: transform;
+}
+.proj:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(101,170,255,0.08);
+  border-left-color: var(--accent);
+}
+.proj h4{ margin:0; font-size:18px; font-weight:600; color:var(--accent) }
+.stack{ margin-top:8px; font-size:14px; color:var(--muted) }
+.proj p{ margin-top:12px; font-size:15px; color:var(--muted); line-height:1.6 }
+.links{ display:flex; gap:12px; margin-top:14px; flex-wrap:wrap }
+.pill{
+  padding:8px 14px; background:#0d141c; border-radius:10px; font-size:14px; border:1px solid #1d2833; text-decoration:none; color:var(--muted);
+}
+.pill:hover{ color:var(--accent); border-color:var(--accent) }
+
+/* SKILLS */
+.skill-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px }
+.skill{ padding:10px 14px; background:#0d141c; border-radius:10px; border:1px solid #1d2633; font-size:14px; color:var(--muted) }
+
+/* ABOUT */
+.about{ color:var(--muted); font-size:16px; line-height:1.7 }
+
+/* reveal (fade + slide-up) */
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:
+    opacity var(--reveal-duration) cubic-bezier(.2,.9,.3,1),
+    transform var(--reveal-duration) cubic-bezier(.2,.9,.3,1);
+  transition-delay: var(--delay, 0s);
+}
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* small typing cursor style */
+#typed{ display:inline-block; white-space:nowrap; vertical-align:middle }
+.cursor {
+  display:inline-block;
+  width:10px;
+  height:20px;
+  background:var(--accent);
+  margin-left:6px;
+  border-radius:2px;
+  opacity:0.95;
+  animation: blink 1s steps(2, start) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+/* responsive adjustments */
+@media(max-width:700px){
+  nav{ display:none }
+  #mobileMenuBtn{ display:block }
+  .avatar{ width:52px;height:52px;border-radius:12px }
+  .title{ font-size:18px }
+  .hero .lead{ font-size:20px }
+  .card{ padding:20px }
+  .proj{ padding:14px }
+  .proj h4{ font-size:16px }
+  .stack, .proj p, .skill{ font-size:14px }
+  .grid{ gap:26px }
+  .wrap{ margin:30px auto; padding:0 16px 48px }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="brand reveal" style="--delay:0.05s">
+      <div class="avatar" aria-hidden="true">AS</div>
+      <div>
+        <div class="title">Abhinav Sharma</div>
+        <div class="subtitle">B.Tech CSE · Software Engineer · C++ & MERN</div>
+      </div>
+    </div>
+
+    <!-- desktop nav -->
+    <nav class="reveal" style="--delay:0.06s" aria-label="Main navigation">
+      <a class="link" href="#projects">Projects</a>
+      <a class="link" href="#skills">Skills</a>
+      <a class="link" href="#about">About</a>
+      <a class="cta" href="resume.pdf" download>Resume</a>
+    </nav>
+
+    <!-- mobile menu button -->
+    <button id="mobileMenuBtn" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle menu">☰</button>
+  </header>
+
+  <!-- mobile menu -->
+  <nav id="mobileMenu" aria-hidden="true">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="resume.pdf" download>Resume</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="card hero reveal" style="--delay:0.08s" id="top">
+    <h1 class="lead">
+      <span id="typed" aria-hidden="false"></span><span class="cursor" aria-hidden="true"></span>
+    </h1>
+
+    <p class="summary reveal" style="--delay:0.14s">
+      Frontend lead on MERN projects (Burrow AI, Clowder). Strong with OOP, DBMS, OS basics, and fundamentals.
+    </p>
+
+    <div class="meta reveal" style="--delay:0.18s">
+      <div class="tag">C++</div>
+      <div class="tag">React</div>
+      <div class="tag">Node.js</div>
+      <div class="tag">MongoDB</div>
+      <div class="tag">OOP · DBMS</div>
+    </div>
+
+    <div class="info reveal" style="--delay:0.22s; margin-top:18px;">
+      <div style="color:var(--muted)">Vadodara, India</div>
+      <a href="mailto:abhinav21pu@gmail.com" style="color:var(--muted);text-decoration:none">abhinav21pu@gmail.com</a>
+      <a href="tel:+919773288686" style="color:var(--muted);text-decoration:none">+91 97732 88686</a>
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <a class="pill" href="https://github.com/Abhinav21ai" target="_blank">GitHub</a>
+        <a class="pill" href="https://linkedin.com/in/abhinav-sharma-684992271" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <!-- PROJECTS -->
+    <section class="card reveal" style="--delay:0.26s" id="projects" aria-label="Projects">
+      <h3>Projects</h3>
+
+      <article class="proj reveal" style="--delay:0.30s">
+        <h4>Burrow AI — Digital Healthcare (Frontend Lead)</h4>
+        <div class="stack">React · Node.js · MongoDB · Tailwind</div>
+        <p>Led the patient interface: appointment flows, chatbot UI, auth flow and responsive layouts. Integrated frontend with JWT-secured backend services.</p>
+        <div class="links">
+          <a class="pill" href="https://burrow-3.onrender.com/" target="_blank">Live Demo</a>
+          <a class="pill" href="https://github.com/Abhinav21ai/Burrow" target="_blank">Repo</a>
+        </div>
+      </article>
+
+      <article class="proj reveal" style="--delay:0.34s">
+        <h4>Clowder — Adaptive Learning Platform</h4>
+        <div class="stack">MERN · Python</div>
+        <p>Built Course Builder UI, Student Dashboard and in-browser Python editor prototype. SIH Finalist (Top 45/600+).</p>
+        <div class="links">
+          <a class="pill" href="https://github.com/Abhinav21ai/Clowder" target="_blank">Repo</a>
+        </div>
+      </article>
+
+      <article class="proj reveal" style="--delay:0.38s" id="proj-3">
+        <h4>C++ — Console Project (Placeholder)</h4>
+        <div class="stack">C++ · File I/O · OOP</div>
+        <p>Simple menu-driven CLI project using classes, encapsulation, and file storage. Replace with your real C++ project later.</p>
+        <div class="links">
+          <a class="pill" href="#">Repo</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- SKILLS -->
+    <aside class="card reveal" style="--delay:0.42s" id="skills" aria-label="Skills">
+      <h3>Skills & Fundamentals</h3>
+
+      <div class="skill-row reveal" style="--delay:0.46s">
+        <div class="skill">C++</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">Python</div>
+      </div>
+
+      <div class="skill-row reveal" style="--delay:0.50s">
+        <div class="skill">React</div>
+        <div class="skill">Node.js</div>
+        <div class="skill">Express</div>
+      </div>
+
+      <div class="skill-row reveal" style="--delay:0.54s">
+        <div class="skill">MongoDB</div>
+        <div class="skill">DBMS</div>
+        <div class="skill">OS Basics</div>
+      </div>
+
+      <div class="skill-row reveal" style="--delay:0.58s">
+        <div class="skill">Networking</div>
+        <div class="skill">Git</div>
+        <div class="skill">Postman</div>
+        <div class="skill">Figma</div>
+      </div>
+
+      <h3 style="margin-top:22px">Achievements</h3>
+      <p class="about reveal" style="--delay:0.62s; font-size:14px; line-height:1.6">
+        • SIH Finalist<br>
+        • AIML Hackathons<br>
+        • Multiple MVP builds
+      </p>
+
+      <h3 style="margin-top:22px">Availability</h3>
+      <p class="about reveal" style="--delay:0.66s; font-size:14px">Pan India • Ready for Graduate Roles</p>
+    </aside>
+  </div>
+
+  <section class="card reveal" style="--delay:0.70s" id="about">
+    <h3>About</h3>
+    <p class="about">I like building software that feels clean and works smoothly. I mix UI sense with CS fundamentals to create fast, minimal, and useful systems. Outside coding I write poetry and explore filmmaking.</p>
+  </section>
+
+  <footer class="reveal" style="--delay:0.74s">
+    © Abhinav Sharma — <a href="mailto:abhinav21pu@gmail.com" style="color:var(--accent);text-decoration:none">Email</a>
+  </footer>
+
+</div>
+
+<script>
+/* Typing effect for hero line */
+(function typeHero(){
+  const el = document.getElementById('typed');
+  const lines = [
+    "I build clean systems.",
+    "I solve problems with C++."
+  ];
+  let lineIndex = 0, charIndex = 0;
+  const typeSpeed = 34;
+  const pauseBetween = 700;
+
+  function type(){
+    const current = lines[lineIndex];
+    if(charIndex <= current.length){
+      el.textContent = current.slice(0, charIndex);
+      charIndex++;
+      setTimeout(type, typeSpeed);
+    } else {
+      // pause then erase
+      setTimeout(()=> erase(), pauseBetween);
+    }
+  }
+  function erase(){
+    const current = lines[lineIndex];
+    if(charIndex >= 0){
+      el.textContent = current.slice(0, charIndex);
+      charIndex--;
+      setTimeout(erase, 20);
+    } else {
+      lineIndex = (lineIndex + 1) % lines.length;
+      setTimeout(type, 160);
+    }
+  }
+  // start after small delay
+  setTimeout(type, 200);
+})();
+
+/* Reveal on scroll using IntersectionObserver */
+(function revealOnScroll(){
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        // if you want: unobserve to avoid re-triggering
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.12});
+
+  document.querySelectorAll('.reveal').forEach(el=>{
+    observer.observe(el);
+  });
+})();
+
+/* Mobile menu toggle */
+(function mobileMenu(){
+  const btn = document.getElementById('mobileMenuBtn');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', ()=>{
+    const open = menu.style.display === 'flex';
+    menu.style.display = open ? 'none' : 'flex';
+    btn.setAttribute('aria-expanded', String(!open));
+    menu.setAttribute('aria-hidden', String(open));
+  });
+})();
+
+/* Smooth scroll for internal links */
+document.querySelectorAll('a.link, #mobileMenu a').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    const href = a.getAttribute('href');
+    if(!href || !href.startsWith('#')) return;
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    // close mobile menu if open
+    const menu = document.getElementById('mobileMenu');
+    if(menu && menu.style.display === 'flex') { menu.style.display = 'none'; document.getElementById('mobileMenuBtn').setAttribute('aria-expanded','false'); }
+  });
+});
+</script>
+
+</body>
+</html>
